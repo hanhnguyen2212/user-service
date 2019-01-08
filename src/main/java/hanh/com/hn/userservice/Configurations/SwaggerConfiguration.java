@@ -1,4 +1,4 @@
-package hanh.com.hn.userservice;
+package hanh.com.hn.userservice.Configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
