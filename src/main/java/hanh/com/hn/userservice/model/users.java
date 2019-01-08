@@ -3,11 +3,20 @@ package hanh.com.hn.userservice.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-    public class users {
+import javax.validation.constraints.*;
+
+public class users {
         @Id
         public ObjectId _id;
 
+        @NotNull
+        @NotBlank
+        @Pattern(regexp = "^\\w+\\@\\w+\\.\\w+", message = "wrong email format")
         public String username;
+
+        @NotNull
+        @NotBlank
+        @Size(min=8,message= "not enough character")
         public String password;
        // public int usid;
 
