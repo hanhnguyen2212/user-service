@@ -1,8 +1,8 @@
 package hanh.com.hn.userservice.controller;
 import com.sun.xml.internal.ws.handler.HandlerException;
 import hanh.com.hn.userservice.Services.PasswordValidation;
+import hanh.com.hn.userservice.Services.UserServiceImp;
 import hanh.com.hn.userservice.model.users;
-import hanh.com.hn.userservice.repo.usersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.bson.types.ObjectId;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UsersController {
     @Autowired
-    private usersRepository repository;
+    private UserServiceImp userServiceImp;
     @Autowired
     private PasswordValidation passwordValidation;
 
@@ -22,13 +22,13 @@ public class UsersController {
     //** get all users
     public List<users> getAllUsers() {
         //System.out.println(repository.findAll());
-        return repository.findAll();
+        return userServiceImp._getAllUsers();
     }
 
     @GetMapping("/{id}")
     //** get one user
     public users getUserById(@PathVariable("id") ObjectId id) {
-        return repository.findBy_id(id);
+        return userServiceImp._getUserById(id);
     }
 
     @PutMapping("/{id}")
@@ -37,7 +37,7 @@ public class UsersController {
         //** validate password
         if (passwordValidation.isValid(users.getPassword())) {
             users.set_id(id);
-            repository.save(users);
+            userServiceImp._modifyUserById(id, users);
         }
         else
         {
@@ -51,20 +51,19 @@ public class UsersController {
         users.set_id(ObjectId.get());
         if (passwordValidation.isValid(users.getPassword()))
         {
-        repository.save(users);
+            userServiceImp._createUser(users);
             return users;}
         else
         {
             throw new HandlerException("Invalid password");
-
         }
-
 
     }
 
     @DeleteMapping("/{id}")
     //** Delete an user
-    public void deleteUser(@PathVariable ObjectId id) {
-        repository.delete(repository.findBy_id(id));
+    public void deleteUser(@PathVariable ObjectId id)
+    {
+        userServiceImp._deleteUser(id);
     }
 }
