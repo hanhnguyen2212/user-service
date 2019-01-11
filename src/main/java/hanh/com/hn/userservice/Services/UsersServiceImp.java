@@ -1,29 +1,31 @@
 package hanh.com.hn.userservice.Services;
 
-import com.sun.xml.internal.ws.handler.HandlerException;
 import hanh.com.hn.userservice.model.users;
 import hanh.com.hn.userservice.repo.usersRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class UserServiceImp {
+public class UsersServiceImp {
 
         @Autowired
-        private usersRepository repository;
+        private static usersRepository repository;
 
-        public List<users> _getAllUsers() {
-            return repository.findAll();
+        public static Page<users> _getAllUsers() {
+
+            System.out.println("-------------"+ (Page<users>) repository.findAll());
+            return (Page<users>) repository.findAll();
         }
 
         public users _getUserById(ObjectId id) {
             return repository.findBy_id(id);
         }
 
-        public void _modifyUserById( ObjectId id, users users) {
-            //** validate password
+        public void _modifyUserById(  users users) {
                 repository.save(users);
         }
 

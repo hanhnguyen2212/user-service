@@ -1,10 +1,8 @@
-package hanh.com.hn.userservice.Services;
+package hanh.com.hn.userservice.UsersUtil;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordValidation {
-
-
     public static boolean isValid(String passwordhere) {
         boolean checkUpperCase =false;
         boolean checkSpecialCase= false;

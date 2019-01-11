@@ -1,12 +1,13 @@
 package hanh.com.hn.userservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.*;
 
 public class users {
-        @Id
+    @Id
         public ObjectId _id;
 
         @NotNull
